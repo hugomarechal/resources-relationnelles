@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Region;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
-class RegionController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $regions = Region::with('departements')->get();
-        return response()->json($regions);
+        $roles = Role::with('permissions')->get();
+        return response()->json($roles);
     }
 
     /**
@@ -28,16 +28,16 @@ class RegionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Region $region)
+    public function show(Role $role)
     {
-        $region->load('departements');
-        return response()->json($region);
+        $role->load('permissions');
+        return response()->json($role);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Region $region)
+    public function update(Request $request, Role $role)
     {
         //
     }
@@ -45,7 +45,7 @@ class RegionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Region $region)
+    public function destroy(Role $role)
     {
         //
     }

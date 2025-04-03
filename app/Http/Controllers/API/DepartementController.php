@@ -14,18 +14,7 @@ class DepartementController extends Controller
     public function index()
     {
         $departements = Departement::all();
-        return response()->json([
-            'status' => true,
-            'departements' => $departements
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json($departements);
     }
 
     /**
@@ -40,14 +29,6 @@ class DepartementController extends Controller
      * Display the specified resource.
      */
     public function show(Departement $departement)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Departement $departement)
     {
         //
     }
