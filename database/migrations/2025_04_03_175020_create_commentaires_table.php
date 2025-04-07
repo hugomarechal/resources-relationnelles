@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('utilisateur_id')->constrained();
             $table->foreignId('ressource_id')->constrained();
 
-            //Réponses à commentaire nullable
+            //Réponses à un commentaire nullable
             $table->foreignId('parent_id')
                 ->nullable()
                 ->constrained('commentaires')
