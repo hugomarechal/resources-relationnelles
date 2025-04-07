@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('mot_de_passe');
             $table->string('code_postal');
             $table->string('ville');
-            $table->string('actif');
+            $table->boolean('actif');
             $table->timestamps();
         });
     }

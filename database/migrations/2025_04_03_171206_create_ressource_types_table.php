@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('ressource_types', function (Blueprint $table) {
             $table->id();
+            $table->string('lib_ressource_type');
+            $table->boolean('visible');
             $table->timestamps();
         });
     }

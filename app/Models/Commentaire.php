@@ -10,6 +10,7 @@ class Commentaire extends Model
 {
     protected $fillable = [
         'lib_commentaire',
+        'visible',
         'utilisateur_id',
         'ressource_id',
         'parent_id'

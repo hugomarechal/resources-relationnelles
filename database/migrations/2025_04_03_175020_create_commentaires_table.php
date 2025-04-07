@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
-            $table->string('lib_commentaire');
+            $table->text('lib_commentaire');
+            $table->boolean('visible');
             $table->foreignId('utilisateur_id')->constrained();
             $table->foreignId('ressource_id')->constrained();
 
-            //Réponses à message nullable
+            //Réponses à commentaire nullable
             $table->foreignId('parent_id')
                 ->nullable()
                 ->constrained('commentaires')

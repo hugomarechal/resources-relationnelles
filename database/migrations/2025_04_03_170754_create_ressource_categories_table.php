@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('ressource_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('lib_ressource_categorie');
+            $table->boolean('visible');
             $table->timestamps();
         });
     }
