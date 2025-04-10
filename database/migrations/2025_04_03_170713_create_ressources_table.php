@@ -21,10 +21,10 @@ return new class extends Migration
             $table->boolean('valide');
             $table->timestamps();
 
-            $table->foreignId('utilisateur_id')->constrained();
-            $table->foreignId('ressource_categorie_id')->constrained();
-            $table->foreignId('ressource_type_id')->constrained();
-            $table->foreignId('relation_type_id')->constrained();
+            $table->foreignId('utilisateur_id')->constrained()->onDelete('restrict');
+            $table->foreignId('ressource_categorie_id')->constrained()->onDelete('restrict');
+            $table->foreignId('ressource_type_id')->constrained()->onDelete('restrict');
+            $table->foreignId('relation_type_id')->constrained()->onDelete('restrict');
         });
     }
 

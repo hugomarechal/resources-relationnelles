@@ -13,16 +13,13 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regions = Region::with('departements')->get();
-        return response()->json($regions);
-    }
+        $regions = Region::with(['departements'])->get();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Liste des régions récupérée avec succès',
+            'data' => $regions
+        ], 200);
     }
 
     /**
@@ -31,7 +28,12 @@ class RegionController extends Controller
     public function show(Region $region)
     {
         $region->load('departements');
-        return response()->json($region);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Région trouvée avec succès',
+            'data' => $region
+        ], 200);
     }
 
     /**

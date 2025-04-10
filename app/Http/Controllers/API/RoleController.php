@@ -13,8 +13,13 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::with('permissions')->get();
-        return response()->json($roles);
+        $roles = Role::all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Liste des rôles récupérée avec succès',
+            'data' => $roles
+        ], 200);
     }
 
     /**
@@ -30,8 +35,11 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $role->load('permissions');
-        return response()->json($role);
+        return response()->json([
+            'status' => true,
+            'message' => 'Rôle trouvé avec succès',
+            'data' => $role
+        ], 200);
     }
 
     /**

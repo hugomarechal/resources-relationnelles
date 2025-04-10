@@ -13,16 +13,13 @@ class RelationTypeController extends Controller
      */
     public function index()
     {
-        $relation_type = RelationType::all();
-        return response()->json($relation_type);
-    }
+        $relation_types = RelationType::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Liste des types de relation récupérée avec succès',
+            'data' => $relation_types
+        ], 200);
     }
 
     /**
@@ -30,7 +27,18 @@ class RelationTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'lib_relation_type' => 'required|string|max:100',
+            'visible' => 'required|boolean',
+        ]);
+
+        $relationType = RelationType::create($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Type de relation ajoutée avec succès',
+            'data' => $relationType
+        ], 201);
     }
 
     /**
@@ -38,15 +46,11 @@ class RelationTypeController extends Controller
      */
     public function show(relationtype $relationtype)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(relationtype $relationtype)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Type de relation trouvée avec succès',
+            'data' => $relationtype
+        ], 200);
     }
 
     /**
@@ -54,7 +58,18 @@ class RelationTypeController extends Controller
      */
     public function update(Request $request, relationtype $relationtype)
     {
-        //
+        $validated = $request->validate([
+            'lib_relation_type' => 'required|string|max:100',
+            'visible' => 'required|boolean',
+        ]);
+
+        $relationtype->update($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Type de relation modifiée avec succès',
+            'data' => $relationtype
+        ], 200);
     }
 
     /**
@@ -62,6 +77,11 @@ class RelationTypeController extends Controller
      */
     public function destroy(relationtype $relationtype)
     {
-        //
+        $relationtype->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Type de relation supprimée avec succès'
+        ], 200);
     }
 }

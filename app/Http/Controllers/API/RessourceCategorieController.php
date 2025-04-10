@@ -6,23 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Models\RessourceCategorie;
 use Illuminate\Http\Request;
 
-class RessourceCategorieController extends Controller
+class ressourceCategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $ressource_categorie = RessourceCategorie::all();
-        return response()->json($ressource_categorie);
-    }
+        $ressourcecategories = RessourceCategorie::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Liste des catégories de ressource récupérée avec succès',
+            'data' => $ressourcecategories
+        ], 200);
     }
 
     /**
@@ -30,38 +27,61 @@ class RessourceCategorieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'lib_ressource_categorie' => 'required|string|max:100',
+            'visible' => 'required|boolean',
+        ]);
+
+        $ressourceCategorie = RessourceCategorie::create($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Catégorie de ressource ajoutée avec succès',
+            'data' => $ressourceCategorie
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ressourcecategorie $ressourcecategorie)
+    public function show(RessourceCategorie $ressourcecategorie)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ressourcecategorie $ressourcecategorie)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Catégorie de ressource trouvée avec succès',
+            'data' => $ressourcecategorie
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ressourcecategorie $ressourcecategorie)
+    public function update(Request $request, RessourceCategorie $ressourcecategorie)
     {
-        //
+        $validated = $request->validate([
+            'lib_ressource_categorie' => 'required|string|max:100',
+            'visible' => 'required|boolean',
+        ]);
+
+        $ressourcecategorie->update($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Catégorie de ressource modifiée avec succès',
+            'data' => $ressourcecategorie
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ressourcecategorie $ressourcecategorie)
+    public function destroy(RessourceCategorie $ressourcecategorie)
     {
-        //
+        $ressourcecategorie->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Catégorie de ressource supprimée avec succès'
+        ], 200);
     }
 }

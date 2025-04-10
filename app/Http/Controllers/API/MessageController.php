@@ -14,15 +14,12 @@ class MessageController extends Controller
     public function index()
     {
         $messages = Message::with(['utilisateur', 'reponses'])->get();
-        return response()->json($messages);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Liste des messages récupérée avec succès',
+            'data' => $messages
+        ], 200);
     }
 
     /**
@@ -30,7 +27,20 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'lib_message' => 'required|string|max:500',
+            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'ressource_id' => 'required|exists:ressources,id',
+            'parent_id' => 'nullable|exists:commentaires,id',
+        ]);
+
+        $message = Message::create($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Message ajouté avec succès',
+            'data' => $message
+        ], 201);
     }
 
     /**
@@ -38,15 +48,13 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        //
-    }
+        $message->load(['utilisateur', 'ressource', 'reponses']);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Message $message)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Message trouvé avec succès',
+            'data' => $message
+        ], 200);
     }
 
     /**
@@ -54,7 +62,20 @@ class MessageController extends Controller
      */
     public function update(Request $request, Message $message)
     {
-        //
+        $validated = $request->validate([
+            'lib_message' => 'required|string|max:500',
+            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'ressource_id' => 'required|exists:ressources,id',
+            'parent_id' => 'nullable|exists:commentaires,id',
+        ]);
+
+        $message->update($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Message modifié avec succès',
+            'data' => $message
+        ], 200);
     }
 
     /**
@@ -62,6 +83,11 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
-        //
+        $message->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Message supprimé avec succès'
+        ], 200);
     }
 }

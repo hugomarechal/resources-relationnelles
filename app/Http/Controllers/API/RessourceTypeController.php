@@ -13,16 +13,13 @@ class RessourceTypeController extends Controller
      */
     public function index()
     {
-        $ressource_type = RessourceType::all();
-        return response()->json($ressource_type);
-    }
+        $ressourcetypes = RessourceType::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Liste des types de ressource récupérée avec succès',
+            'data' => $ressourcetypes
+        ], 200);
     }
 
     /**
@@ -30,7 +27,18 @@ class RessourceTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'lib_ressource_type' => 'required|string|max:100',
+            'visible' => 'required|boolean',
+        ]);
+
+        $ressourcetype = RessourceType::create($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Type de ressource ajouté avec succès',
+            'data' => $ressourcetype
+        ], 201);
     }
 
     /**
@@ -38,15 +46,11 @@ class RessourceTypeController extends Controller
      */
     public function show(ressourcetype $ressourcetype)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ressourcetype $ressourcetype)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Type de ressource trouvé avec succès',
+            'data' => $ressourcetype
+        ], 200);
     }
 
     /**
@@ -54,7 +58,18 @@ class RessourceTypeController extends Controller
      */
     public function update(Request $request, ressourcetype $ressourcetype)
     {
-        //
+        $validated = $request->validate([
+            'lib_ressource_type' => 'required|string|max:100',
+            'visible' => 'required|boolean',
+        ]);
+
+        $ressourcetype->update($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Type de ressource modifié avec succès',
+            'data' => $ressourcetype
+        ], 200);
     }
 
     /**
@@ -62,6 +77,11 @@ class RessourceTypeController extends Controller
      */
     public function destroy(ressourcetype $ressourcetype)
     {
-        //
+        $ressourcetype->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Type de ressource supprimé avec succès'
+        ], 200);
     }
 }

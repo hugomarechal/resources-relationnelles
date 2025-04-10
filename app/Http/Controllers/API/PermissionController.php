@@ -14,15 +14,12 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        return response()->json($permissions);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Liste des permissions récupérée avec succès',
+            'data' => $permissions
+        ], 200);
     }
 
     /**
@@ -38,17 +35,13 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission)
     {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Permission trouvée avec succès',
+            'data' => $permission
+        ], 200);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Permission $permission)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      */

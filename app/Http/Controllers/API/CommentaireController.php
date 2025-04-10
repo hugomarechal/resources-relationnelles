@@ -14,15 +14,12 @@ class CommentaireController extends Controller
     public function index()
     {
         $commentaires = Commentaire::with(['utilisateur', 'ressource', 'reponses'])->get();
-        return response()->json($commentaires);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Liste des commentaires récupérée avec succès',
+            'data' => $commentaires
+        ], 200);
     }
 
     /**
@@ -30,7 +27,21 @@ class CommentaireController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'lib_commentaire' => 'required|string|max:500',
+            'visible' => 'required|boolean',
+            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'ressource_id' => 'required|exists:ressources,id',
+            'parent_id' => 'nullable|exists:commentaires,id',
+        ]);
+
+        $commentaire = Commentaire::create($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Commentaire ajouté avec succès',
+            'data' => $commentaire
+        ], 201);
     }
 
     /**
@@ -38,15 +49,13 @@ class CommentaireController extends Controller
      */
     public function show(Commentaire $commentaire)
     {
-        //
-    }
+        $commentaire->load(['utilisateur', 'ressource', 'reponses']);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Commentaire $commentaire)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Commentaire trouvé avec succès',
+            'data' => $commentaire
+        ], 200);
     }
 
     /**
@@ -54,7 +63,21 @@ class CommentaireController extends Controller
      */
     public function update(Request $request, Commentaire $commentaire)
     {
-        //
+        $validated = $request->validate([
+            'lib_commentaire' => 'required|string|max:500',
+            'visible' => 'required|boolean',
+            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'ressource_id' => 'required|exists:ressources,id',
+            'parent_id' => 'nullable|exists:commentaires,id',
+        ]);
+
+        $commentaire->update($validated);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Commentaire modifié avec succès',
+            'data' => $commentaire
+        ], 200);
     }
 
     /**
@@ -62,6 +85,11 @@ class CommentaireController extends Controller
      */
     public function destroy(Commentaire $commentaire)
     {
-        //
+        $commentaire->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Commentaire supprimé avec succès'
+        ], 200);
     }
 }

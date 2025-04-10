@@ -14,7 +14,12 @@ class DepartementController extends Controller
     public function index()
     {
         $departements = Departement::all();
-        return response()->json($departements);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Liste des commentaires récupérée avec succès',
+            'data' => $departements
+        ], 200);
     }
 
     /**
@@ -30,7 +35,13 @@ class DepartementController extends Controller
      */
     public function show(Departement $departement)
     {
-        //
+        $departement->load(['region']);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Département trouvé avec succès',
+            'data' => $departement
+        ], 200);
     }
 
     /**
