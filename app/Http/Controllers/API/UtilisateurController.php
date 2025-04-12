@@ -76,7 +76,6 @@ class UtilisateurController extends Controller
             'ville' => 'required|string|max:100',
             'actif' => 'required|boolean',
         ]);
-
         $utilisateur->update($validated);
 
         return response()->json([
