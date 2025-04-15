@@ -17,7 +17,7 @@ class DepartementController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Liste des commentaires récupérée avec succès',
+            'message' => 'Liste des départements récupérée avec succès',
             'data' => $departements
         ], 200);
     }
