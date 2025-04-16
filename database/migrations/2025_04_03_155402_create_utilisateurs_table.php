@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('utilisateurs', function (Blueprint $table) {
             $table->id();
-            $table->string('pseudo');
+            $table->foreignId('departement_id')->constrained('departements')->onDelete('restrict')->nullable();
+            $table->string('pseudo')->nullable();
             $table->string('nom');
             $table->string('prenom');
             $table->string('email')->unique();
             $table->string('mot_de_passe');
-            $table->string('code_postal');
-            $table->string('ville');
+            $table->string('code_postal')->nullable();
+            $table->string('ville')->nullable();
             $table->boolean('actif');
             $table->timestamps();
         });
