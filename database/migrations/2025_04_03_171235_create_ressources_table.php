@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->text('description');
-            $table->string('nom_fichier');
+            $table->string('nom_fichier')->nullable();
             $table->boolean('restreint');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->boolean('valide');
             $table->timestamps();
 

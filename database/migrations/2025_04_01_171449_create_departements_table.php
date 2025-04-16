@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('departements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('region_id')->constrained('regions')->onDelete('restrict');;
+            $table->foreignId('region_id')->constrained('regions')->onDelete('restrict');
             $table->string('lib_departement');
             $table->string('code')->unique();
             $table->timestamps();
