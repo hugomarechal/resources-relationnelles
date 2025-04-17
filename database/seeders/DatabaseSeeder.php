@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RegionSeeder::class,
             DepartementSeeder::class,
-            RolePermissionSeeder::class
+            RolePermissionSeeder::class,
+            RessourceTypeSeeder::class,
+            RelationTypeSeeder::class
         ]);
     }
 }
