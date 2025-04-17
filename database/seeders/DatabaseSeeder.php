@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             RegionSeeder::class,
-            DepartementSeeder::class
+            DepartementSeeder::class,
+            RolePermissionSeeder::class
         ]);
     }
 }
