@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles.permissions')->get();
+        $users = User::all();
 
         return response()->json([
             'status' => true,
@@ -51,8 +51,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user->load('roles.permissions');
-
         return response()->json([
             'status' => true,
             'message' => 'Utilisateur trouvé avec succès',
