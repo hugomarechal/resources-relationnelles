@@ -13,7 +13,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::with(['utilisateur', 'reponses'])->get();
+        $messages = Message::with(['user', 'reponses'])->get();
 
         return response()->json([
             'status' => true,
@@ -29,7 +29,7 @@ class MessageController extends Controller
     {
         $validated = $request->validate([
             'lib_message' => 'required|string|max:500',
-            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'user_id' => 'required|exists:users,id',
             'ressource_id' => 'required|exists:ressources,id',
             'parent_id' => 'nullable|exists:commentaires,id',
         ]);
@@ -48,7 +48,7 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        $message->load(['utilisateur', 'ressource', 'reponses']);
+        $message->load(['user', 'ressource', 'reponses']);
 
         return response()->json([
             'status' => true,
@@ -64,7 +64,7 @@ class MessageController extends Controller
     {
         $validated = $request->validate([
             'lib_message' => 'required|string|max:500',
-            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'user_id' => 'required|exists:users,id',
             'ressource_id' => 'required|exists:ressources,id',
             'parent_id' => 'nullable|exists:commentaires,id',
         ]);

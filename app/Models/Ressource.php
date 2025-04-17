@@ -14,15 +14,15 @@ class Ressource extends Model
         'restreint',
         'url',
         'valide',
-        'utilisateur_id',
+        'user_id',
         'ressource_categorie_id',
         'ressource_type_id',
         'relation_type_id'
     ];
 
-    public function utilisateur(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Utilisateur::class);
+        return $this->belongsTo(User::class);
     }
 
     public function ressourceCategorie(): BelongsTo
