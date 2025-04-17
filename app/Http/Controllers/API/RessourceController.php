@@ -13,7 +13,7 @@ class RessourceController extends Controller
      */
     public function index()
     {
-        $ressources = Ressource::with(['utilisateur', 'ressource_type', 'ressource_categorie', 'relation_type'])->get();
+        $ressources = Ressource::with(['user', 'ressource_type', 'ressource_categorie', 'relation_type'])->get();
 
         return response()->json([
             'status' => true,
@@ -34,7 +34,7 @@ class RessourceController extends Controller
             'restreint' => 'required|boolean',
             'url' => 'required|string|max:255',
             'valide' => 'required|boolean',
-            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'user_id' => 'required|exists:users,id',
             'ressource_categorie_id' => 'required|exists:ressource_categories,id',
             'ressource_type_id' => 'required|exists:ressource_types,id',
             'relation_type_id' => 'required|exists:relation_types,id',
@@ -54,7 +54,7 @@ class RessourceController extends Controller
      */
     public function show(Ressource $ressource)
     {
-        $ressource->load(['utilisateur', 'ressource_type', 'ressource_categorie', 'relation_type']);
+        $ressource->load(['user', 'ressource_type', 'ressource_categorie', 'relation_type']);
 
         return response()->json([
             'status' => true,
@@ -75,7 +75,7 @@ class RessourceController extends Controller
             'restreint' => 'required|boolean',
             'url' => 'required|string|max:255',
             'valide' => 'required|boolean',
-            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'user_id' => 'required|exists:users,id',
             'ressource_categorie_id' => 'required|exists:ressource_categories,id',
             'ressource_type_id' => 'required|exists:ressource_types,id',
             'relation_type_id' => 'required|exists:relation_types,id',

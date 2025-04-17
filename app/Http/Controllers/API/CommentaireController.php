@@ -13,7 +13,7 @@ class CommentaireController extends Controller
      */
     public function index()
     {
-        $commentaires = Commentaire::with(['utilisateur', 'ressource', 'reponses'])->get();
+        $commentaires = Commentaire::with(['user', 'ressource', 'reponses'])->get();
 
         return response()->json([
             'status' => true,
@@ -30,7 +30,7 @@ class CommentaireController extends Controller
         $validated = $request->validate([
             'lib_commentaire' => 'required|string|max:500',
             'visible' => 'required|boolean',
-            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'user_id' => 'required|exists:users,id',
             'ressource_id' => 'required|exists:ressources,id',
             'parent_id' => 'nullable|exists:commentaires,id',
         ]);
@@ -49,7 +49,7 @@ class CommentaireController extends Controller
      */
     public function show(Commentaire $commentaire)
     {
-        $commentaire->load(['utilisateur', 'ressource', 'reponses']);
+        $commentaire->load(['user', 'ressource', 'reponses']);
 
         return response()->json([
             'status' => true,
@@ -66,7 +66,7 @@ class CommentaireController extends Controller
         $validated = $request->validate([
             'lib_commentaire' => 'required|string|max:500',
             'visible' => 'required|boolean',
-            'utilisateur_id' => 'required|exists:utilisateurs,id',
+            'user_id' => 'required|exists:users,id',
             'ressource_id' => 'required|exists:ressources,id',
             'parent_id' => 'nullable|exists:commentaires,id',
         ]);

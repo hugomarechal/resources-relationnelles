@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->text('lib_message');
-            $table->foreignId('utilisateur_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('ressource_id')->constrained();
 
             //Réponses à message nullable

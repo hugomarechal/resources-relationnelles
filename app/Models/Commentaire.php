@@ -11,7 +11,7 @@ class Commentaire extends Model
     protected $fillable = [
         'lib_commentaire',
         'visible',
-        'utilisateur_id',
+        'user_id',
         'ressource_id',
         'parent_id'
     ];
@@ -21,9 +21,9 @@ class Commentaire extends Model
         return $this->hasMany(Commentaire::class, 'parent_id');
     }
 
-    public function utilisateur(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Utilisateur::class);
+        return $this->belongsTo(User::class);
     }
 
     public function ressource(): BelongsTo

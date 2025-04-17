@@ -10,7 +10,7 @@ class Message extends Model
 {
     protected $fillable = [
         'lib_message',
-        'utilisateur_id',
+        'user_id',
         'ressource_id',
         'parent_id'
     ];
@@ -20,8 +20,8 @@ class Message extends Model
         return $this->hasMany(Message::class, 'parent_id');
     }
 
-    public function utilisateur(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Utilisateur::class);
+        return $this->belongsTo(User::class);
     }
 }

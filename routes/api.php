@@ -11,11 +11,11 @@ use App\Http\Controllers\API\RessourceCategorieController;
 use App\Http\Controllers\API\RessourceController;
 use App\Http\Controllers\API\RessourceTypeController;
 use App\Http\Controllers\API\RoleController;
-use App\Http\Controllers\API\UtilisateurController;
+use App\Http\Controllers\API\UserController;
 
 Route::apiResource('regions', RegionController::class);
 Route::apiResource('departements', DepartementController::class);
-Route::apiResource('utilisateurs', UtilisateurController::class);
+Route::apiResource('users', UserController::class);
 Route::apiResource('roles', RoleController::class);
 Route::apiResource('permissions', PermissionController::class);
 Route::apiResource('ressources', RessourceController::class);
