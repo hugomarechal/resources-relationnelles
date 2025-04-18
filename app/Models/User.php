@@ -26,7 +26,8 @@ class User extends Authenticatable
         'pseudo',
         'code_postal',
         'ville',
-        'actif'
+        'actif',
+        'role_id'
     ];
 
     /**

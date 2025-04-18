@@ -18,10 +18,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+<<<<<<< Updated upstream
+=======
             $table->string('pseudo')->nullable();
             $table->string('code_postal')->nullable();
             $table->string('ville')->nullable();
             $table->boolean('actif')->nullable();
+            $table->foreignId('role_id')->constrained()->onDelete('restrict');
+>>>>>>> Stashed changes
             $table->rememberToken();
             $table->timestamps();
         });
