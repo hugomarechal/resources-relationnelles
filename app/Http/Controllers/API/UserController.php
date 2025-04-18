@@ -33,8 +33,9 @@ class UserController extends Controller
             'prenom' => 'required|string|max:100',
             'email' => 'required|string|max:100',
             'password' => 'required|string|max:255',
-            'code_postal' => 'required|string|max:100',
-            'ville' => 'required|string|max:100',
+            'pseudo' => 'nullable|string|max:100',
+            'code_postal' => 'nullable|string|max:100',
+            'ville' => 'nullable|string|max:100',
             'actif' => 'required|boolean',
             'role_id' => 'nullable|integer|exists:roles,id'
         ]);
