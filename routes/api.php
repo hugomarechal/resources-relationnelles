@@ -11,6 +11,7 @@ use App\Http\Controllers\API\RessourceController;
 use App\Http\Controllers\API\RessourcePartageController;
 use App\Http\Controllers\API\RessourceTypeController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\AuthController;
 
 Route::apiResource('regions', RegionController::class);
 Route::apiResource('departements', DepartementController::class);
@@ -22,3 +23,7 @@ Route::apiResource('relation_types', RelationTypeController::class);
 Route::apiResource('messages', MessageController::class);
 Route::apiResource('commentaires', CommentaireController::class);
 Route::apiResource('ressource_partages', RessourcePartageController::class);
+//Route liée à la connexion et à la gestion du compte.
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
