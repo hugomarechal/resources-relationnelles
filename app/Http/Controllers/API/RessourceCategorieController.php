@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\RessourceCategorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class RessourceCategorieController extends Controller
 {
@@ -44,40 +45,57 @@ class RessourceCategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RessourceCategorie $ressourcecategorie)
+    public function show(RessourceCategorie $ressourceCategorie)
     {
         return response()->json([
             'status' => true,
             'message' => 'Catégorie de ressource trouvée avec succès',
-            'data' => $ressourcecategorie
+            'data' => $ressourceCategorie
         ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RessourceCategorie $ressourcecategorie)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'lib_ressource_categorie' => 'required|string|max:100',
-            'visible' => 'required|boolean',
-        ]);
+        $ressourceCategorie = RessourceCategorie::find($id);
 
-        $ressourcecategorie->update($validated);
+        if ($ressourceCategorie) {
+            // Validation des données
+            $validated = $request->validate([
+                'lib_ressource_categorie' => 'required|string|max:100',
+                'visible' => 'required|boolean',
+            ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Catégorie de ressource modifiée avec succès',
-            'data' => $ressourcecategorie
-        ], 200);
+            // Mise à jour de la ressource
+            $ressourceCategorie->update($validated);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Catégorie de ressource modifiée avec succès',
+                'data' => $ressourceCategorie
+            ], 200);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RessourceCategorie $ressourcecategorie)
+    public function destroy($id)
     {
-        $ressourcecategorie->delete();
+        $ressourceCategorie = RessourceCategorie::find($id);
+
+        if ($ressourceCategorie) {
+            if ($ressourceCategorie->ressources()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Cette catégorie ne peut être supprimée : elle est utilisée par une ressource.'
+                ], 400);
+            } else {
+                $ressourceCategorie->delete();
+            }
+        }
 
         return response()->json([
             'status' => true,
