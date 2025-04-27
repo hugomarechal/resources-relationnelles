@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Role;
 
+
 class UserController extends Controller
 {
     /**
@@ -27,7 +28,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         // Validation des données ------------------------
+
         $validated = $request->validate([
             'nom' => 'required|string|max:100',
             'prenom' => 'required|string|max:100',
@@ -37,13 +40,14 @@ class UserController extends Controller
             'code_postal' => 'nullable|string|max:100',
             'ville' => 'nullable|string|max:100',
             'actif' => 'required|boolean',
+
             'role_id' => 'nullable|integer|exists:roles,id'
         ]);
          
          // Déterminer le rôle demandé ou définir 'citizen' par défaut-----------------
          $roleId = $validated['role_id'] ?? 4; // 4 est l'ID par défaut pour 'Citoyens'
 
-        // Si le rôle n'est pas 'citizen', vérifier que l'utilisateur connecté est superadmin
+        // Si le rôle n'est pas 'Citoyens', vérifier que l'utilisateur connecté est superadmin
     
         if ($roleId !== 4) {
             if (!Auth::check() || Auth::user()->role_id !== 1) {
@@ -59,6 +63,7 @@ class UserController extends Controller
         // Créer l'utilisateur ------------------------
         $utilisateur = Utilisateur::create($validated);
     
+
         return response()->json([
             'status' => true,
             'message' => 'Utilisateur ajouté avec succès',

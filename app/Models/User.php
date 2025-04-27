@@ -28,6 +28,7 @@ class User extends Authenticatable
         'ville',
         'actif',
         'role_id'
+
     ];
 
     /**
