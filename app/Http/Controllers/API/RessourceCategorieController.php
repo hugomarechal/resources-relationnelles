@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\RessourceCategorie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class RessourceCategorieController extends Controller
 {
@@ -14,7 +13,7 @@ class RessourceCategorieController extends Controller
      */
     public function index()
     {
-        $ressourcecategories = RessourceCategorie::all();
+        $ressourcecategories = RessourceCategorie::orderBy('lib_ressource_categorie')->get();
 
         return response()->json([
             'status' => true,
@@ -29,7 +28,7 @@ class RessourceCategorieController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'lib_ressource_categorie' => 'required|string|max:100',
+            'lib_ressource_categorie' => 'required|string|max:50',
             'visible' => 'required|boolean',
         ]);
 
