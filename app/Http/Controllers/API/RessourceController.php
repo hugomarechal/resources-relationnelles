@@ -13,7 +13,7 @@ class RessourceController extends Controller
      */
     public function index()
     {
-        $ressources = Ressource::with(['user', 'ressource_type', 'ressource_categorie', 'relation_type'])->get();
+        $ressources = Ressource::orderBy('titre')::with(['user', 'ressourceType', 'ressourceCategorie', 'relationType'])->get();
 
         return response()->json([
             'status' => true,
@@ -27,26 +27,34 @@ class RessourceController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'titre' => 'required|string|max:100',
-            'description' => 'required|string|max:500',
-            'nom_fichier' => 'required|string|max:255',
-            'restreint' => 'required|boolean',
-            'url' => 'required|string|max:255',
-            'valide' => 'required|boolean',
-            'user_id' => 'required|exists:users,id',
-            'ressource_categorie_id' => 'required|exists:ressource_categories,id',
-            'ressource_type_id' => 'required|exists:ressource_types,id',
-            'relation_type_id' => 'required|exists:relation_types,id',
-        ]);
+        try {
+            $validated = $request->validate([
+                'titre' => 'required|string|max:100',
+                'description' => 'required|string|max:500',
+                'nom_fichier' => 'nullable|string|max:255',
+                'restreint' => 'required|boolean',
+                'url' => 'nullable|string|max:255',
+                'valide' => 'required|boolean',
+                'user_id' => 'required|exists:users,id',
+                'ressource_categorie_id' => 'required|exists:ressource_categories,id',
+                'ressource_type_id' => 'required|exists:ressource_types,id',
+                'relation_type_id' => 'required|exists:relation_types,id',
+            ]);
 
-        $ressource = Ressource::create($validated);
+            $ressource = Ressource::create($validated);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Ressource ajoutée avec succès',
-            'data' => $ressource
-        ], 201);
+            return response()->json([
+                'status' => true,
+                'message' => 'Ressource ajoutée avec succès',
+                'data' => $ressource
+            ], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Erreur de validation',
+                'errors' => $e->errors() // Renvoie un tableau : field => [msg1, msg2...]
+            ], 422);
+        }
     }
 
     /**
@@ -71,9 +79,9 @@ class RessourceController extends Controller
         $validated = $request->validate([
             'titre' => 'required|string|max:100',
             'description' => 'required|string|max:500',
-            'nom_fichier' => 'required|string|max:255',
+            'nom_fichier' => 'string|max:255',
             'restreint' => 'required|boolean',
-            'url' => 'required|string|max:255',
+            'url' => 'string|max:255',
             'valide' => 'required|boolean',
             'user_id' => 'required|exists:users,id',
             'ressource_categorie_id' => 'required|exists:ressource_categories,id',

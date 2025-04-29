@@ -13,7 +13,7 @@ class RelationTypeController extends Controller
      */
     public function index()
     {
-        $relation_types = RelationType::all();
+        $relation_types = RelationType::orderBy('lib_relation_type')->get();
 
         return response()->json([
             'status' => true,
