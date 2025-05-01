@@ -8,6 +8,7 @@ use App\Http\Controllers\API\RegionController;
 use App\Http\Controllers\API\RelationTypeController;
 use App\Http\Controllers\API\RessourceCategorieController;
 use App\Http\Controllers\API\RessourceController;
+use App\Http\Controllers\API\RessourcePartageController;
 use App\Http\Controllers\API\RessourceTypeController;
 use App\Http\Controllers\API\UserController;
 
@@ -20,3 +21,4 @@ Route::apiResource('ressource_categories', RessourceCategorieController::class);
 Route::apiResource('relation_types', RelationTypeController::class);
 Route::apiResource('messages', MessageController::class);
 Route::apiResource('commentaires', CommentaireController::class);
+Route::apiResource('ressource_partages', RessourcePartageController::class);
