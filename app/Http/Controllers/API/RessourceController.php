@@ -37,7 +37,6 @@ class RessourceController extends Controller
      */
     public function store(Request $request)
     {
-        try {
             $validated = $request->validate([
                 'titre' => 'required|string|max:100',
                 'description' => 'required|string|max:500',
@@ -58,13 +57,6 @@ class RessourceController extends Controller
                 'message' => 'Ressource ajoutée avec succès',
                 'data' => $ressource
             ], 201);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Erreur de validation',
-                'errors' => $e->errors() // Renvoie un tableau : field => [msg1, msg2...]
-            ], 422);
-        }
     }
 
     /**
