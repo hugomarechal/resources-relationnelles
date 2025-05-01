@@ -11,14 +11,24 @@ class RelationTypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $relation_types = RelationType::orderBy('lib_relation_type')->get();
+        $query = RelationType::orderBy('lib_relation_type');
+
+        //Paramètres optionnels
+        if ($request->has('visible')) {
+            $visible = filter_var($request->query('visible'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if ($visible !== null) {
+                $query->where('visible', $visible);
+            }
+        }
+
+        $relationTypes = $query->get();
 
         return response()->json([
             'status' => true,
             'message' => 'Liste des types de relation récupérée avec succès',
-            'data' => $relation_types
+            'data' => $relationTypes
         ], 200);
     }
 
@@ -44,7 +54,7 @@ class RelationTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(relationtype $relationtype)
+    public function show(RelationType $relationtype)
     {
         return response()->json([
             'status' => true,
@@ -56,28 +66,28 @@ class RelationTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, relationtype $relationtype)
+    public function update(Request $request, RelationType $relationType)
     {
         $validated = $request->validate([
             'lib_relation_type' => 'required|string|max:100',
             'visible' => 'required|boolean',
         ]);
 
-        $relationtype->update($validated);
+        $relationType->update($validated);
 
         return response()->json([
             'status' => true,
             'message' => 'Type de relation modifiée avec succès',
-            'data' => $relationtype
+            'data' => $relationType
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(relationtype $relationtype)
+    public function destroy(RelationType $relationType)
     {
-        $relationtype->delete();
+        $relationType->delete();
 
         return response()->json([
             'status' => true,

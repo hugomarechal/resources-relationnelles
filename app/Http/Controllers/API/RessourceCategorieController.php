@@ -11,14 +11,24 @@ class RessourceCategorieController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ressourcecategories = RessourceCategorie::orderBy('lib_ressource_categorie')->get();
+        $query = RessourceCategorie::orderBy('lib_ressource_categorie');
+
+        //Paramètres optionnels
+        if ($request->has('visible')) {
+            $visible = filter_var($request->query('visible'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE); //CAST en booléen
+            if ($visible !== null) {
+                $query->where('visible', $visible);
+            }
+        }
+
+        $ressourceCategories = $query->get();
 
         return response()->json([
             'status' => true,
             'message' => 'Liste des catégories de ressource récupérée avec succès',
-            'data' => $ressourcecategories
+            'data' => $ressourceCategories
         ], 200);
     }
 
