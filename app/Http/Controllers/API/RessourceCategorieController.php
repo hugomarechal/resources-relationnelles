@@ -11,14 +11,24 @@ class RessourceCategorieController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ressourcecategories = RessourceCategorie::all();
+        $query = RessourceCategorie::orderBy('lib_ressource_categorie');
+
+        //Paramètres optionnels
+        if ($request->has('visible')) {
+            $visible = filter_var($request->query('visible'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE); //CAST en booléen
+            if ($visible !== null) {
+                $query->where('visible', $visible);
+            }
+        }
+
+        $ressourceCategories = $query->get();
 
         return response()->json([
             'status' => true,
             'message' => 'Liste des catégories de ressource récupérée avec succès',
-            'data' => $ressourcecategories
+            'data' => $ressourceCategories
         ], 200);
     }
 
@@ -28,7 +38,7 @@ class RessourceCategorieController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'lib_ressource_categorie' => 'required|string|max:100',
+            'lib_ressource_categorie' => 'required|string|max:50',
             'visible' => 'required|boolean',
         ]);
 
@@ -44,40 +54,57 @@ class RessourceCategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RessourceCategorie $ressourcecategorie)
+    public function show(RessourceCategorie $ressourceCategorie)
     {
         return response()->json([
             'status' => true,
             'message' => 'Catégorie de ressource trouvée avec succès',
-            'data' => $ressourcecategorie
+            'data' => $ressourceCategorie
         ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RessourceCategorie $ressourcecategorie)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'lib_ressource_categorie' => 'required|string|max:100',
-            'visible' => 'required|boolean',
-        ]);
+        $ressourceCategorie = RessourceCategorie::find($id);
 
-        $ressourcecategorie->update($validated);
+        if ($ressourceCategorie) {
+            // Validation des données
+            $validated = $request->validate([
+                'lib_ressource_categorie' => 'required|string|max:100',
+                'visible' => 'required|boolean',
+            ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Catégorie de ressource modifiée avec succès',
-            'data' => $ressourcecategorie
-        ], 200);
+            // Mise à jour de la ressource
+            $ressourceCategorie->update($validated);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Catégorie de ressource modifiée avec succès',
+                'data' => $ressourceCategorie
+            ], 200);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RessourceCategorie $ressourcecategorie)
+    public function destroy($id)
     {
-        $ressourcecategorie->delete();
+        $ressourceCategorie = RessourceCategorie::find($id);
+
+        if ($ressourceCategorie) {
+            if ($ressourceCategorie->ressources()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Cette catégorie ne peut être supprimée : elle est utilisée par une ressource.'
+                ], 400);
+            } else {
+                $ressourceCategorie->delete();
+            }
+        }
 
         return response()->json([
             'status' => true,

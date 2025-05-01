@@ -11,9 +11,19 @@ class RessourceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ressources = Ressource::with(['user', 'ressource_type', 'ressource_categorie', 'relation_type'])->get();
+        $query = Ressource::with(['user', 'ressourceType', 'ressourceCategorie', 'relationType'])->orderBy('created_at', 'desc');
+
+        // Filtre sur valide
+        if ($request->has('valide')) {
+            $valide = filter_var($request->query('valide'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if ($valide !== null) {
+                $query->where('valide', $valide);
+            }
+        }
+
+        $ressources = $query->get();
 
         return response()->json([
             'status' => true,
@@ -27,26 +37,26 @@ class RessourceController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'titre' => 'required|string|max:100',
-            'description' => 'required|string|max:500',
-            'nom_fichier' => 'required|string|max:255',
-            'restreint' => 'required|boolean',
-            'url' => 'required|string|max:255',
-            'valide' => 'required|boolean',
-            'user_id' => 'required|exists:users,id',
-            'ressource_categorie_id' => 'required|exists:ressource_categories,id',
-            'ressource_type_id' => 'required|exists:ressource_types,id',
-            'relation_type_id' => 'required|exists:relation_types,id',
-        ]);
+            $validated = $request->validate([
+                'titre' => 'required|string|max:100',
+                'description' => 'required|string|max:500',
+                'nom_fichier' => 'nullable|string|max:255',
+                'restreint' => 'required|boolean',
+                'url' => 'nullable|string|max:255',
+                'valide' => 'required|boolean',
+                'user_id' => 'required|exists:users,id',
+                'ressource_categorie_id' => 'required|exists:ressource_categories,id',
+                'ressource_type_id' => 'required|exists:ressource_types,id',
+                'relation_type_id' => 'required|exists:relation_types,id'
+            ]);
 
-        $ressource = Ressource::create($validated);
+            $ressource = Ressource::create($validated);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Ressource ajoutée avec succès',
-            'data' => $ressource
-        ], 201);
+            return response()->json([
+                'status' => true,
+                'message' => 'Ressource ajoutée avec succès',
+                'data' => $ressource
+            ], 201);
     }
 
     /**
@@ -71,14 +81,14 @@ class RessourceController extends Controller
         $validated = $request->validate([
             'titre' => 'required|string|max:100',
             'description' => 'required|string|max:500',
-            'nom_fichier' => 'required|string|max:255',
+            'nom_fichier' => 'nullable|string|max:255',
             'restreint' => 'required|boolean',
-            'url' => 'required|string|max:255',
+            'url' => 'nullable|string|max:255',
             'valide' => 'required|boolean',
             'user_id' => 'required|exists:users,id',
             'ressource_categorie_id' => 'required|exists:ressource_categories,id',
             'ressource_type_id' => 'required|exists:ressource_types,id',
-            'relation_type_id' => 'required|exists:relation_types,id',
+            'relation_type_id' => 'required|exists:relation_types,id'
         ]);
 
         $ressource->update($validated);

@@ -13,7 +13,7 @@ class RessourceTypeController extends Controller
      */
     public function index()
     {
-        $ressourcetypes = RessourceType::all();
+        $ressourcetypes = RessourceType::orderBy('lib_ressource_type')->get();
 
         return response()->json([
             'status' => true,
