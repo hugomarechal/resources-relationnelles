@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('code_postal')->nullable();
             $table->string('ville')->nullable();
             $table->boolean('actif')->nullable();
+            $table->foreignId('role_id')->constrained()->onDelete('restrict');
             $table->rememberToken();
             $table->timestamps();
         });
