@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ressource_partages', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('ressource_id')->constrained()->cascadeOnDelete();;
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
 
-            $table->primary(['ressource_id', 'user_id']);
+            $table->unique(['ressource_id', 'user_id']);
         });
     }
 
