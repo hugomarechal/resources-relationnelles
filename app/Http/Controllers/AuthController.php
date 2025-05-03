@@ -41,6 +41,35 @@ class AuthController extends Controller
     }
 
 
+
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Aucun compte ne correspond à cet email.'
+            ], 404);
+        }
+    
+        $user->password = Hash::make($request->password);
+        $user->save();
+    
+        return response()->json([
+            'status' => true,
+            'message' => 'Mot de passe réinitialisé avec succès.'
+        ]);
+    }
+    
+
+
 }
 
 

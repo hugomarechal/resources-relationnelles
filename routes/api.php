@@ -27,3 +27,4 @@ Route::apiResource('ressource_partages', RessourcePartageController::class);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
