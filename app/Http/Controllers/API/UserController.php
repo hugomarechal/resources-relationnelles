@@ -57,7 +57,7 @@ class UserController extends Controller
         $validated['role_id'] = $roleId;
 
         // Créer l'utilisateur ------------------------
-        $utilisateur = Utilisateur::create($validated);
+        $user = User::create($validated);
     
         return response()->json([
             'status' => true,
