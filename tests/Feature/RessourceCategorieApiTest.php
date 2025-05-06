@@ -5,14 +5,13 @@ namespace Tests\Feature;
 use App\Models\Ressource;
 use App\Models\RessourceCategorie;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RessourceCategorieApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_index_ressource_categories(): void
+    public function test_can_list_ressource_categories(): void
     {
         //Arrange
         RessourceCategorie::factory()->count(3)->create();
@@ -31,7 +30,7 @@ class RessourceCategorieApiTest extends TestCase
             ]);
     }
 
-    public function test_index_by_visible(): void
+    public function test_can_list_by_visible(): void
     {
         //Arrange
         RessourceCategorie::factory()->create(['visible' => true]);
@@ -46,7 +45,7 @@ class RessourceCategorieApiTest extends TestCase
             ->assertJsonMissing(['visible' => 0]);
     }
 
-    public function test_store_ressource_categorie(): void
+    public function test_can_store_ressource_categorie(): void
     {
         //Arrange
         $payload = [
@@ -74,7 +73,7 @@ class RessourceCategorieApiTest extends TestCase
         ]);
     }
 
-    public function test_show_ressource_categorie(): void
+    public function test_can_show_ressource_categorie(): void
     {
         //Arrange
         $categorie = RessourceCategorie::factory()->create([
@@ -96,7 +95,7 @@ class RessourceCategorieApiTest extends TestCase
             ]);
     }
 
-    public function test_update_ressource_categorie(): void
+    public function test_can_update_ressource_categorie(): void
     {
         //Arrange
         $categorie = RessourceCategorie::factory()->create([
@@ -131,7 +130,7 @@ class RessourceCategorieApiTest extends TestCase
         ]);
     }
 
-    public function test_delete_ressource_categorie(): void
+    public function test_can_delete_ressource_categorie(): void
     {
         //Arrange
         $categorie = RessourceCategorie::factory()->create();

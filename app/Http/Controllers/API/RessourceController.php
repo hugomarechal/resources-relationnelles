@@ -37,26 +37,26 @@ class RessourceController extends Controller
      */
     public function store(Request $request)
     {
-            $validated = $request->validate([
-                'titre' => 'required|string|max:100',
-                'description' => 'required|string|max:500',
-                'nom_fichier' => 'nullable|string|max:255',
-                'restreint' => 'required|boolean',
-                'url' => 'nullable|string|max:255',
-                'valide' => 'required|boolean',
-                'user_id' => 'required|exists:users,id',
-                'ressource_categorie_id' => 'required|exists:ressource_categories,id',
-                'ressource_type_id' => 'required|exists:ressource_types,id',
-                'relation_type_id' => 'required|exists:relation_types,id'
-            ]);
+        $validated = $request->validate([
+            'titre' => 'required|string|max:100',
+            'description' => 'required|string|max:500',
+            'nom_fichier' => 'nullable|string|max:255',
+            'restreint' => 'required|boolean',
+            'url' => 'nullable|string|max:255',
+            'valide' => 'required|boolean',
+            'user_id' => 'required|exists:users,id',
+            'ressource_categorie_id' => 'required|exists:ressource_categories,id',
+            'ressource_type_id' => 'required|exists:ressource_types,id',
+            'relation_type_id' => 'required|exists:relation_types,id'
+        ]);
 
-            $ressource = Ressource::create($validated);
+        $ressource = Ressource::create($validated);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Ressource ajoutée avec succès',
-                'data' => $ressource
-            ], 201);
+        return response()->json([
+            'status' => true,
+            'message' => 'Ressource ajoutée avec succès',
+            'data' => $ressource
+        ], 201);
     }
 
     /**
@@ -64,7 +64,7 @@ class RessourceController extends Controller
      */
     public function show(Ressource $ressource)
     {
-        $ressource->load(['user', 'ressource_type', 'ressource_categorie', 'relation_type']);
+        $ressource->load(['user', 'ressourceType', 'ressourceCategorie', 'relationType']);
 
         return response()->json([
             'status' => true,
