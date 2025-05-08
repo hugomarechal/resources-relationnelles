@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -81,27 +84,34 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
-    {
-        $validated = $request->validate([
-            'pseudo' => 'required|string|max:100',
-            'nom' => 'required|string|max:100',
-            'prenom' => 'required|string|max:100',
-            'email' => 'required|string|max:100',
-            'mot_de_passe' => 'required|string|max:255',
-            'code_postal' => 'required|string|max:100',
-            'ville' => 'required|string|max:100',
-            'actif' => 'required|boolean',
-        ]);
 
-        $user->update($validated);
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Utilisateur modifié avec succès',
-            'data' => $user
-        ], 200);
+    public function updateSelf(Request $request)
+{
+    $user = Auth::user();
+    //On vérifie uniquement si le champ est renseigné.
+    $validated = $request->validate([
+        'nom' => 'sometimes|string|max:100',
+        'prenom' => 'sometimes|string|max:100',
+        'email' => 'sometimes|email|max:100',
+        'password' => 'sometimes|string|min:8|confirmed',
+        'pseudo' => 'sometimes|string|max:100',
+        'code_postal' => 'sometimes|string|max:100',
+        'ville' => 'sometimes|string|max:100',
+    ]);
+     //Si le password est modifié, on lâche avant de le remplacer.
+    if (isset($validated['password'])) {
+        $validated['password'] = Hash::make($validated['password']);
     }
+
+    $user->update($validated);
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Informations mises à jour avec succès',
+        'data' => $user
+    ]);
+}
+    
 
     /**
      * Remove the specified resource from storage.
