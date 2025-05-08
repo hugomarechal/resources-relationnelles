@@ -69,6 +69,38 @@ class UserController extends Controller
         ], 201);
     }
 
+    
+        public function toggleActif($id)
+    {
+        $admin = Auth::user();
+
+        // Vérifie que seul un administrateur peut faire ça
+        if ($admin->role_id !== 1) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Seul un administrateur peut modifier l’état des comptes.'
+            ], 403);
+        }
+
+        $user = User::findOrFail($id);
+
+        // Inverser le booléen actif
+        $user->actif = !$user->actif;
+        $user->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Utilisateur ' . ($user->actif ? 'activé' : 'désactivé') . ' avec succès.',
+            'data' => [
+                'id' => $user->id,
+                'nom' => $user->nom,
+                'email' => $user->email,
+                'actif' => $user->actif
+            ]
+        ]);
+    }
+
+
     /**
      * Display the specified resource.
      */

@@ -31,3 +31,4 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
 
 Route::put('/user/update', [UserController::class, 'updateSelf'])->middleware('auth:sanctum');
+Route::put('/admin/users/{id}/toggle', [UserController::class, 'toggleActif'])->middleware('auth:sanctum');
