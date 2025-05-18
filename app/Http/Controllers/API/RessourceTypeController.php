@@ -13,12 +13,12 @@ class RessourceTypeController extends Controller
      */
     public function index()
     {
-        $ressourcetypes = RessourceType::orderBy('lib_ressource_type')->get();
+        $ressourceTypes = RessourceType::orderBy('lib_ressource_type')->get();
 
         return response()->json([
             'status' => true,
             'message' => 'Liste des types de ressource récupérée avec succès',
-            'data' => $ressourcetypes
+            'data' => $ressourceTypes
         ], 200);
     }
 
@@ -44,7 +44,7 @@ class RessourceTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ressourcetype $ressourcetype)
+    public function show(RessourceType $ressourcetype)
     {
         return response()->json([
             'status' => true,
@@ -56,28 +56,28 @@ class RessourceTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ressourcetype $ressourcetype)
+    public function update(Request $request, RessourceType $ressourceType)
     {
         $validated = $request->validate([
             'lib_ressource_type' => 'required|string|max:100',
             'visible' => 'required|boolean',
         ]);
 
-        $ressourcetype->update($validated);
+        $ressourceType->update($validated);
 
         return response()->json([
             'status' => true,
             'message' => 'Type de ressource modifié avec succès',
-            'data' => $ressourcetype
+            'data' => $ressourceType
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ressourcetype $ressourcetype)
+    public function destroy(RessourceType $ressourceType)
     {
-        $ressourcetype->delete();
+        $ressourceType->delete();
 
         return response()->json([
             'status' => true,

@@ -46,7 +46,7 @@ class RelationTypeController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Type de relation ajoutée avec succès',
+            'message' => 'Type de relation ajouté avec succès',
             'data' => $relationType
         ], 201);
     }
@@ -58,7 +58,7 @@ class RelationTypeController extends Controller
     {
         return response()->json([
             'status' => true,
-            'message' => 'Type de relation trouvée avec succès',
+            'message' => 'Type de relation trouvé avec succès',
             'data' => $relationtype
         ], 200);
     }
@@ -77,21 +77,32 @@ class RelationTypeController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Type de relation modifiée avec succès',
+            'message' => 'Type de relation modifié avec succès',
             'data' => $relationType
         ], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage. 
      */
-    public function destroy(RelationType $relationType)
+    public function destroy($id)
     {
-        $relationType->delete();
+        // Vérifier si ressource utilise ce type de relation
+        $relationType = RelationType::find($id);
+        if ($relationType) {
+            if ($relationType->ressources()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Ce type de relation ne peut être supprimé : il est utilisé par une ressource.'
+                ], 400);
+            } else {
+                $relationType->delete();
+            }
+        }
 
         return response()->json([
             'status' => true,
-            'message' => 'Type de relation supprimée avec succès'
+            'message' => 'Type de relation supprimé avec succès'
         ], 200);
     }
 }

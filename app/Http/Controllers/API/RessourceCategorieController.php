@@ -93,8 +93,8 @@ class RessourceCategorieController extends Controller
      */
     public function destroy($id)
     {
+        // Vérifier si ressource utilise cette catégorie
         $ressourceCategorie = RessourceCategorie::find($id);
-
         if ($ressourceCategorie) {
             if ($ressourceCategorie->ressources()->exists()) {
                 return response()->json([
