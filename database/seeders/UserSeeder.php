@@ -36,13 +36,12 @@ class UserSeeder extends Seeder
                 'prenom' => $data['prenom'],
                 'email' => $data['email'],
                 'email_verified_at' => now(),
-                'password' => 'password',
+                'password' => 'Password%13',
                 'pseudo' => Str::slug($data['prenom']) . rand(10, 99),
                 'code_postal' => $data['code_postal'],
                 'ville' => $data['ville'],
                 'actif' => true,
-                'role_id' => $roles[$data['role']],
-                'remember_token' => Str::random(10),
+                'role_id' => $roles[$data['role']]
             ]);
         }
     }
