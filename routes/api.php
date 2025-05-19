@@ -11,7 +11,7 @@ use App\Http\Controllers\API\RessourceController;
 use App\Http\Controllers\API\RessourcePartageController;
 use App\Http\Controllers\API\RessourceTypeController;
 use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\API\AuthController;
 
 Route::apiResource('regions', RegionController::class);
 Route::apiResource('departements', DepartementController::class);
