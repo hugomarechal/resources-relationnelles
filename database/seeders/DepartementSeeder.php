@@ -117,8 +117,8 @@ class DepartementSeeder extends Seeder
             ['lib_departement' => 'Mayotte', 'code' => '976', 'region_id' => 18],
         ];
 
-        foreach ($departements as $dep) {
-            Departement::create($dep);
+        foreach ($departements as $departement) {
+            Departement::create($departement);
         }
     }
 }

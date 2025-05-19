@@ -23,8 +23,11 @@ class DatabaseSeeder extends Seeder
             RegionSeeder::class,
             DepartementSeeder::class,
             RolePermissionSeeder::class,
+            UserSeeder::class,
             RessourceTypeSeeder::class,
-            RelationTypeSeeder::class
+            RelationTypeSeeder::class,
+            CategorieSeeder::class,
+            RessourceSeeder::class
         ]);
     }
 }
