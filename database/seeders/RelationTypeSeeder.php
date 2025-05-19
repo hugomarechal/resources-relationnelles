@@ -15,10 +15,16 @@ class RelationTypeSeeder extends Seeder
     {
         $relationTypes = [
             ['lib_relation_type' => 'Amitié', 'visible' => true],
-            ['lib_relation_type' => 'Famille', 'visible' => true],
-            ['lib_relation_type' => 'Travail', 'visible' => true],
+            ['lib_relation_type' => 'Parent-Enfant', 'visible' => true],
+            ['lib_relation_type' => 'Fratrie', 'visible' => true],
+            ['lib_relation_type' => 'Relation amoureuse', 'visible' => true],
+            ['lib_relation_type' => 'Couple', 'visible' => true],
+            ['lib_relation_type' => 'Colocataire', 'visible' => true],
             ['lib_relation_type' => 'Voisinage', 'visible' => true],
-            ['lib_relation_type' => 'Communauté', 'visible' => true],
+            ['lib_relation_type' => 'Aidant familial', 'visible' => true],
+            ['lib_relation_type' => 'Enseignant·e ou formateur·rice', 'visible' => true],
+            ['lib_relation_type' => 'Professionnel de santé', 'visible' => true],
+            ['lib_relation_type' => 'Accompagnant social', 'visible' => true],
         ];
 
         foreach ($relationTypes as $relationType) {

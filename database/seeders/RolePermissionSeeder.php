@@ -18,7 +18,7 @@ class RolePermissionSeeder extends Seeder
             ['name' => 'super-administrateur'],
             ['name' => 'administrateur'],
             ['name' => 'modérateur'],
-            ['name' => 'citoyen connecté']
+            ['name' => 'citoyen']
         ];
 
         foreach ($roles as $role) {
