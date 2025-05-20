@@ -29,7 +29,6 @@ class UserSeeder extends Seeder
             ['nom' => 'Robert', 'prenom' => 'Thomas', 'email' => 'thomas@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '59000', 'ville' => 'Lille'],
             ['nom' => 'Colin', 'prenom' => 'Isabelle', 'email' => 'isabelle@admin.fr', 'role' => 'administrateur', 'code_postal' => '38000', 'ville' => 'Grenoble'],
         ];
-
         foreach ($users as $data) {
             User::create([
                 'nom' => $data['nom'],
