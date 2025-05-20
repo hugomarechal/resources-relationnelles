@@ -18,16 +18,16 @@ class UserSeeder extends Seeder
         $roles = Role::pluck('id', 'name');
 
         $users = [
-            ['nom' => 'Durand', 'prenom' => 'Alice', 'email' => 'alice@admin.fr', 'role' => 'super-administrateur', 'code_postal' => '75001', 'ville' => 'Paris'],
-            ['nom' => 'Martin', 'prenom' => 'Jean', 'email' => 'jean@moderateur.fr', 'role' => 'modérateur', 'code_postal' => '69003', 'ville' => 'Lyon'],
-            ['nom' => 'Dupont', 'prenom' => 'Emma', 'email' => 'emma@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '13001', 'ville' => 'Marseille'],
-            ['nom' => 'Bernard', 'prenom' => 'Lucie', 'email' => 'lucie@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '31000', 'ville' => 'Toulouse'],
-            ['nom' => 'Noel', 'prenom' => 'Samuel', 'email' => 'samuel@admin.fr', 'role' => 'administrateur', 'code_postal' => '44000', 'ville' => 'Nantes'],
-            ['nom' => 'Petit', 'prenom' => 'Clara', 'email' => 'clara@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '35000', 'ville' => 'Rennes'],
-            ['nom' => 'Lemoine', 'prenom' => 'David', 'email' => 'david@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '67000', 'ville' => 'Strasbourg'],
-            ['nom' => 'Benoit', 'prenom' => 'Sarah', 'email' => 'sarah@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '21000', 'ville' => 'Dijon'],
-            ['nom' => 'Robert', 'prenom' => 'Thomas', 'email' => 'thomas@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '59000', 'ville' => 'Lille'],
-            ['nom' => 'Colin', 'prenom' => 'Isabelle', 'email' => 'isabelle@admin.fr', 'role' => 'administrateur', 'code_postal' => '38000', 'ville' => 'Grenoble'],
+            ['nom' => 'DURAND', 'prenom' => 'Alice', 'email' => 'alice@admin.fr', 'role' => 'super-administrateur', 'code_postal' => '75001', 'ville' => 'Paris'],
+            ['nom' => 'MARTIN', 'prenom' => 'Jean', 'email' => 'jean@moderateur.fr', 'role' => 'modérateur', 'code_postal' => '69003', 'ville' => 'Lyon'],
+            ['nom' => 'DUPONT', 'prenom' => 'Emma', 'email' => 'emma@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '13001', 'ville' => 'Marseille'],
+            ['nom' => 'BERANRD', 'prenom' => 'Lucie', 'email' => 'lucie@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '31000', 'ville' => 'Toulouse'],
+            ['nom' => 'NOEL', 'prenom' => 'Samuel', 'email' => 'samuel@admin.fr', 'role' => 'administrateur', 'code_postal' => '44000', 'ville' => 'Nantes'],
+            ['nom' => 'PETIT', 'prenom' => 'Clara', 'email' => 'clara@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '35000', 'ville' => 'Rennes'],
+            ['nom' => 'LEMOINE', 'prenom' => 'David', 'email' => 'david@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '67000', 'ville' => 'Strasbourg'],
+            ['nom' => 'BENOIT', 'prenom' => 'Sarah', 'email' => 'sarah@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '21000', 'ville' => 'Dijon'],
+            ['nom' => 'ROBERT', 'prenom' => 'Thomas', 'email' => 'thomas@citoyen.fr', 'role' => 'citoyen', 'code_postal' => '59000', 'ville' => 'Lille'],
+            ['nom' => 'COLIN', 'prenom' => 'Isabelle', 'email' => 'isabelle@admin.fr', 'role' => 'administrateur', 'code_postal' => '38000', 'ville' => 'Grenoble'],
         ];
         foreach ($users as $data) {
             User::create([
