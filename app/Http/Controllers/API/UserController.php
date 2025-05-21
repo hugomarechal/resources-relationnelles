@@ -43,21 +43,25 @@ class UserController extends Controller
             'role_id' => 'nullable|integer|exists:roles,id'
         ]);
          
-         // Déterminer le rôle demandé ou définir 'citizen' par défaut-----------------
-         $roleId = $validated['role_id'] ?? 4; // 4 est l'ID par défaut pour 'Citoyens'
+         // Si l'utilisateur n'est pas connecté, on force le rôle citoyen (4)
+if (!Auth::check()) {
+    $validated['role_id'] = 4;
+} else {
+    // L'utilisateur est connecté → on récupère le rôle demandé (ou citoyen par défaut)
+    $roleId = $validated['role_id'] ?? 4;
 
-        // Si le rôle n'est pas 'citizen', vérifier que l'utilisateur connecté est superadmin
-    
-        if ($roleId !== 4) {
-            if (!Auth::check() || Auth::user()->role_id !== 1) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Seul un superadmin peut attribuer ce rôle.'
-                ], 403);
-            }
-        }
-        // Force l'assignation du rôle de l'utilisateur avant la création
-        $validated['role_id'] = $roleId;
+    // Si l'utilisateur connecté veut créer autre chose qu'un citoyen, il doit être superadmin
+    if ($roleId !== 4 && Auth::user()->role_id !== 1) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Seul un superadmin peut attribuer un rôle différent de citoyen.'
+        ], 403);
+    }
+
+    // Sinon, on valide le rôle demandé (1, 2, 3 ou 4)
+    $validated['role_id'] = $roleId;
+}
+
 
         // Créer l'utilisateur ------------------------
         $user = User::create($validated);
