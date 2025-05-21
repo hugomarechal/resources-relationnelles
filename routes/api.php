@@ -12,6 +12,7 @@ use App\Http\Controllers\API\RessourcePartageController;
 use App\Http\Controllers\API\RessourceTypeController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\RoleController;
 
 Route::apiResource('regions', RegionController::class);
 Route::apiResource('departements', DepartementController::class);
@@ -23,6 +24,7 @@ Route::apiResource('relation_types', RelationTypeController::class);
 Route::apiResource('messages', MessageController::class);
 Route::apiResource('commentaires', CommentaireController::class);
 Route::apiResource('ressource_partages', RessourcePartageController::class);
+Route::apiResource('roles', RoleController::class);
 
 //Route liée à la connexion et à la gestion du compte.
 Route::post('/login', [AuthController::class, 'login']);

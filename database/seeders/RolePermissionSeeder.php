@@ -15,10 +15,10 @@ class RolePermissionSeeder extends Seeder
     public function run(): void
     {
         $roles = [
-            ['name' => 'super-administrateur'],
-            ['name' => 'administrateur'],
-            ['name' => 'modérateur'],
-            ['name' => 'citoyen']
+            ['name' => 'Super-administrateur'],
+            ['name' => 'Administrateur'],
+            ['name' => 'Modérateur'],
+            ['name' => 'Citoyen']
         ];
 
         foreach ($roles as $role) {
