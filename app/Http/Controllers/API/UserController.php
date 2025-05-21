@@ -51,7 +51,7 @@ if (!Auth::check()) {
     $roleId = $validated['role_id'] ?? 4;
 
     // Si l'utilisateur connecté veut créer autre chose qu'un citoyen, il doit être superadmin
-    if ($roleId !== 4 && Auth::user()->role_id !== 1) {
+    if ($roleId !== 4 && Auth::user()->role_id == 1) {
         return response()->json([
             'status' => false,
             'message' => 'Seul un superadmin peut attribuer un rôle différent de citoyen.'
