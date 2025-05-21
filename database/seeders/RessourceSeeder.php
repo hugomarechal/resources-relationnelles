@@ -21,7 +21,7 @@ class RessourceSeeder extends Seeder
 
         $ressources = [
             [
-                'titre' => 'Renforcer la communication dans le couple',
+                'titre' => 'Améliorer la communication dans le couple',
                 'description' => "Apprendre à exprimer clairement ses besoins et à écouter activement son partenaire permet de prévenir les malentendus et de renforcer la confiance.
                     \nApprendre à reformuler, gérer ses émotions et équilibrer les temps de parole est essentiel.
                     \nGérer les désaccords sans conflit et instaurer un dialogue bienveillant favorise la complicité et le respect mutuel.",
@@ -32,7 +32,7 @@ class RessourceSeeder extends Seeder
                 'relation' => $relationTypes['Couple'],
             ],
             [
-                'titre' => 'Créer un lien de confiance avec son adolescent',
+                'titre' => 'Créer un lien de confiance avec un adolescent',
                 'description' => "Construire une relation de confiance avec un adolescent repose sur la patience et l’ouverture.
                     \nUn cadre sécurisant tout en laissant place à l’autonomie est essentiel.
                     \nL’écoute empathique, le respect des émotions et la valorisation des efforts favorisent un dialogue régulier.
@@ -50,7 +50,7 @@ class RessourceSeeder extends Seeder
                     \nFavoriser la coopération et la solidarité valorise la singularité de chacun.
                     \nCes actions contribuent à faire de la fratrie un espace d’apprentissage et de complicité durable.",
                 'restreint' => false,
-                'valide' => false,
+                'valide' => true,
                 'url' => 'https://www.ateliergigogne.com/actus/comment-gerer-les-conflits-dans-une-fratrie/',
                 'categorie' => $categories['Vie de famille'],
                 'relation' => $relationTypes['Fratrie'],
@@ -78,19 +78,19 @@ class RessourceSeeder extends Seeder
                 'relation' => $relationTypes['Voisinage'],
             ],
             [
-                'titre' => 'Gérer les conflits entre voisins de manière constructive',
+                'titre' => 'Gérer les conflits entre voisins',
                 'description' => "Les conflits de voisinage ont un impact direct sur la qualité de vie.
                     \nÉcouter activement les points de vue, communiquer calmement sans reproches et rechercher des solutions communes facilitent la résolution.
                     \nLa médiation peut être une option utile.
                     \nLe respect des règles et de la vie en communauté est un socle indispensable à la coexistence pacifique.",
                 'restreint' => false,
-                'valide' => false,
+                'valide' => true,
                 'url' => null,
                 'categorie' => $categories['Lien social et entraide'],
                 'relation' => $relationTypes['Voisinage'],
             ],
             [
-                'titre' => 'Favoriser l’inclusion relationnelle des personnes âgées',
+                'titre' => 'Inclure les personnes âgées isolées',
                 'description' => "L’isolement social chez les personnes âgées est un enjeu majeur de santé publique.
                     \nLes visites régulières, les échanges intergénérationnels et la participation à des activités collectives renforcent le lien social.
                     \nLe rôle des familles, aidants et communautés est crucial pour créer un environnement accueillant et stimulant.
@@ -106,7 +106,7 @@ class RessourceSeeder extends Seeder
                 'description' => "Une dynamique familiale saine repose sur l’écoute mutuelle, la coopération et la reconnaissance de chacun.
                     \nL’éducation bienveillante encourage la mise en place de moments partagés, de règles claires et la valorisation des efforts.
                     \nLa gestion apaisée des conflits renforce la cohésion et favorise le bonheur au sein du foyer.",
-                'restreint' => false,
+                'restreint' => true,
                 'valide' => true,
                 'url' => null,
                 'categorie' => $categories['Vie de famille'],
@@ -117,7 +117,7 @@ class RessourceSeeder extends Seeder
                 'description' => "L’accompagnement d’une personne dépressive nécessite empathie, patience et respect des limites.
                     \nÉcouter sans juger, encourager la consultation professionnelle et prendre soin de soi sont des éléments essentiels.
                     \nLa connaissance des idées reçues sur la maladie mentale aide à maintenir un lien familial et amical respectueux des rythmes individuels.",
-                'restreint' => true,
+                'restreint' => false,
                 'valide' => true,
                 'url' => 'https://www.vidal.fr/maladies/psychisme/depression-adulte/aider-proche.html',
                 'categorie' => $categories['Santé'],

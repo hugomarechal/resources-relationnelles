@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ressource;
+use App\Models\RessourcePartage;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RessourceController extends Controller
@@ -13,13 +15,41 @@ class RessourceController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Ressource::with(['user', 'ressourceType', 'ressourceCategorie', 'relationType'])->orderBy('created_at', 'desc');
+        $query = Ressource::with(['user', 'ressourceType', 'ressourceCategorie', 'relationType'])
+            ->orderBy('created_at', 'desc');
 
-        // Filtre sur valide
+        // Filtre optionnel : "valide"
         if ($request->has('valide')) {
             $valide = filter_var($request->query('valide'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
             if ($valide !== null) {
                 $query->where('valide', $valide);
+            }
+        }
+
+        if ($request->has('catalogue')) {
+            $userId = (int) ($request->query('user_id') ?? 0);
+            $isAdmin = false;
+            if ($userId === 0) {
+                // user_id = 0 = uniquement les restreintes
+                $query->where('restreint', false);
+            } else {
+                // Vérifier le rôle de l'utilisateur
+                $user = User::find($userId);
+                $isAdmin = $user && in_array($user->role_id, [1, 2]);
+
+                if ($isAdmin) {
+                    // aucun filtre
+                } else {
+                    // Utilisateur = publiques + personnelles + partagées
+                    $ressourcesPartageesIds = RessourcePartage::where('user_id', $userId)
+                        ->pluck('ressource_id');
+
+                    $query->where(function ($q) use ($userId, $ressourcesPartageesIds) {
+                        $q->where('restreint', false)
+                            ->orWhere('user_id', $userId)
+                            ->orWhereIn('id', $ressourcesPartageesIds);
+                    });
+                }
             }
         }
 
