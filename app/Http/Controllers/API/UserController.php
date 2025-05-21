@@ -9,7 +9,6 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
 class UserController extends Controller
 {
     /**
@@ -17,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('nom')->orderBy('prenom')->get();
 
         return response()->json([
             'status' => true,
@@ -62,7 +61,6 @@ if (!Auth::check()) {
     $validated['role_id'] = $roleId;
 }
 
-
         // Créer l'utilisateur ------------------------
         $user = User::create($validated);
     
@@ -73,7 +71,6 @@ if (!Auth::check()) {
         ], 201);
     }
 
-    
         public function toggleActif($id)
     {
         $admin = Auth::user();
@@ -103,7 +100,6 @@ if (!Auth::check()) {
             ]
         ]);
     }
-
 
     /**
      * Display the specified resource.
@@ -148,7 +144,6 @@ if (!Auth::check()) {
     ]);
 }
     
-
     /**
      * Remove the specified resource from storage.
      */
